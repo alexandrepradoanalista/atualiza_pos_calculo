@@ -25,7 +25,6 @@ query_faturamento = queries.sql_faturamento
 query_pedidos = queries.sql_pedidos
 query_produtividade = queries.sql_produtividade
 
-
 # Caminhos onde cada um dos arquivos retornados pelas consultas serão salvos
 
 caminho_destino_pos_calc = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Pos_Calculo.xls')
@@ -33,7 +32,6 @@ caminho_destino_nome_ops = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\
 caminho_destino_pedidos = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Pedidos de Venda.xls')
 caminho_destino_faturamento = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Notas Faturadas.xls')
 caminho_destino_produtividade = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Produtividade por Op.xls')
-
 
 # Instanciando objetos da classe Consulta
 
