@@ -79,7 +79,7 @@ FROM
 	
 	LEFT JOIN
 		opcaracteristicaproduto CARAC
-		ON CARAC.idopordemproducao = A.ID
+		ON CARAC.idopordemproducao = A.IDOPORDEMPRODUCAO
 		AND CARAC.idcaracteristicaproduto = 4
 	
 	INNER JOIN
@@ -95,7 +95,6 @@ FROM
 		ON OPB.IDOPORDEMPRODUCAO = A.IDOPORDEMPRODUCAO
 	
 	WHERE 1=1
-	
 	)
 	UNION ALL
 	(
@@ -182,7 +181,7 @@ FROM
 	
 	LEFT JOIN
 		opcaracteristicaproduto CARAC
-		ON CARAC.idopordemproducao = A.ID
+		ON CARAC.idopordemproducao = A.IDOPORDEMPRODUCAO
 		AND CARAC.idcaracteristicaproduto = 4
 	
 	INNER JOIN
@@ -407,7 +406,7 @@ SELECT
 		GROUP BY
 			V2.idestitemestoque	
 	) * DI.QUANTIDADE / IFNULL(IC.fatorconversao,1) AS 'm2Total'
-	,DIC.VALORLIQUIDO AS 'ValorLiquido'
+	,DIC.VALORLIQUIDO + DIC.BASECALCULOIPI * (DIC.PERCIPI / 100) AS 'ValorLiquido'
 	,DI.CFOP AS 'CFOP'
 	,EN.END_CIDADE AS 'Cidade'
 	,EN.END_UF AS 'UF'
@@ -435,6 +434,8 @@ SELECT
 	,A.ATI_DESCRICAO AS 'DescAtividade'
 	,F.fatorconversao AS 'Fator'
 	,V.valormedio AS 'ValorMedio'
+	,OPV.idopordemproducao AS 'CodOP'
+#	,DIC.BASECALCULOIPI * (DIC.PERCIPI / 100) AS 'ValorIPI'
 
 FROM
 	documentocabecalho DC
@@ -534,7 +535,18 @@ LEFT JOIN
 	AND PV.CLASSIFICACAO = PVI.CLASSIFICACAO
 	AND PV.DOC_ID = PVI.DOC_ID
 
-INNER JOIN
+LEFT JOIN
+	oppedidos OPP
+	ON OPP.idempresa = PVI.EMP_ID
+	AND OPP.classificacao = PVI.CLASSIFICACAO
+	AND OPP.doc_id = PVI.DOC_ID
+	AND OPP.sequencialitem = PVI.SEQUENCIALITEM
+
+LEFT JOIN
+	opvariacao OPV
+	ON OPP.idopvariacao = OPV.id
+
+LEFT JOIN
 	cliente C
 	ON C.IDPESSOA = P.ID
 
@@ -546,18 +558,15 @@ WHERE 1=1
 	AND DC.CLASSIFICACAO = 0
 	AND DC.CANCELADA = 'N'
 	AND DI.GEROUFATURAMENTO = 'S'
-    AND DC.DATAEMISSAO <=NOW()
+	AND DI.CFOP IN ('0.000','5.101','5.102','5.118','5.119','5.122','5.123','5.405','5.551'
+		           ,'5.553','5.933','5.949','6.101','6.102','6.107','6.108','6.109','6.110'
+		           ,'6.118','6.119','6.122','6.123','6.404','6.551','6.933')
 
 GROUP BY
 	DC.EMP_ID
 	,DC.CLASSIFICACAO
 	,DC.DOC_ID
 	,DI.SEQUENCIALITEM
-	
-ORDER BY 
-	DC.DATAEMISSAO
-
-
 '''
 
 sql_faturamento_novo = """

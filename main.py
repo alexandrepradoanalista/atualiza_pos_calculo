@@ -23,7 +23,7 @@ query_pos_calculo = queries.sql_pos_calculo
 query_nome_operadores = queries.sql_nome_operadores
 query_faturamento = queries.sql_faturamento
 query_pedidos = queries.sql_pedidos
-query_produtividade = query_pedidos
+query_produtividade = queries.sql_produtividade
 
 
 # Caminhos onde cada um dos arquivos retornados pelas consultas serão salvos
@@ -47,7 +47,7 @@ salvar_produtividade = Consulta(engine, query_produtividade, caminho_destino_pro
 try:
     salvar_pos_calculo.salvar_arquivo()
     salvar_nome_ops.salvar_arquivo()
-    salvar_pedidos.salvar_arquivo
+    salvar_pedidos.salvar_arquivo()
     salvar_faturamento.salvar_arquivo()
     salvar_produtividade.salvar_arquivo()
     print(f'Dados atualizado até {datetime.now().strftime("%H:%M:%S do dia %d/%m/%Y")}')
