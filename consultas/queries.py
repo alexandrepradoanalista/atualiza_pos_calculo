@@ -703,3 +703,79 @@ GROUP BY
 	,DI.SEQUENCIALITEM
 
 '''
+
+sql_produtividade = '''
+SELECT
+	P.IDEQUIPAMENTO AS ID
+	,P.DESCRICAOEQUIPAMENTO AS 'Equipamento'	
+	,A.DATAHORAINICIAL AS 'Inicio'
+	,A.DATAHORAFINAL AS 'Fim'
+	,T.IDOPORDEMPRODUCAO AS 'OP'
+	,P.DESCRICAOTARTAREFA AS 'tarefa'
+	,P.TIPOTAREFA AS 'tipoTarefa'
+	,V.idestitemestoque AS 'codItem'
+	,E.descricao AS 'Item'
+	,P.QUANTIDADE AS 'Quantidade'
+	,A.QTMETROLINEAR + A.TIRAGEMAPONTADA + A.QTFOLHASPEDACOS + A.QTFINALAPONTADA + A.QTFOLHASAPONTADA   AS 'QuantidadeApontada'
+	,OC.DESCRICAO AS 'Ocorrencias'
+	,OP.NOME	AS 'Operador'
+	,OPCI.tiragemtotalcalc AS 'totalmetroslinearesprevisto'	
+	,O.quantidade AS 'QuantidadePrevista'
+	,OPC.montagemcarreiras AS 'Carreiras'
+
+FROM
+	pcptrabalhos T
+	
+INNER JOIN
+	pcpprocessos P
+	ON T.EMP_ID = P.EMP_ID
+	AND T.CODIGO = P.CODIGOTRABALHO
+
+INNER JOIN
+	pcpapontamento A
+	ON P.EMP_ID = A.EMP_ID
+	AND P.CODIGOTRABALHO = A.CODIGOTRABALHO 
+	AND P.CODIGO = A.CODIGOPROCESSO
+
+INNER JOIN
+	opordemproducao O
+	ON T.IDOPORDEMPRODUCAO = O.id
+
+INNER JOIN 
+	ocorrencia OC
+	ON A.IDOCORRENCIA = OC.ID
+	
+INNER JOIN 
+	operador OP
+	ON A.IDOPERADOR = OP.ID
+
+LEFT JOIN
+	opvariacao V
+	ON V.idopordemproducao = O.id
+
+LEFT JOIN
+	estitemestoque E
+	ON V.idestitemestoque = E.id
+
+INNER JOIN 
+	opcompcaracteristica OPC
+	ON P.IDOPCOMPONENTE = OPC.idopcomponente
+	
+INNER JOIN 
+	opcompcaracteristicaimpressao OPCI
+	ON OPC.id = OPCI.id
+
+
+LEFT JOIN 
+	opcaracteristicaproduto OPCP
+	ON O.id = OPCP.idopordemproducao
+
+WHERE 1=1
+#	AND $CONDICAO	
+
+GROUP BY
+	A.DATAHORAINICIAL,
+	OC.DESCRICAO
+
+ORDER BY 1,3
+'''

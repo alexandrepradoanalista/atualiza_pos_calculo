@@ -32,7 +32,6 @@ caminho_destino_nome_ops = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\
 caminho_destino_pedidos = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Pedidos de Venda.xls')
 caminho_destino_faturamento = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Notas Faturadas.xls')
 caminho_destino_produtividade = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Produtividade por Op.xls')
-
 # Instanciando objetos da classe Consulta
 
 salvar_pos_calculo = Consulta(engine, query_pos_calculo, caminho_destino_pos_calc)
