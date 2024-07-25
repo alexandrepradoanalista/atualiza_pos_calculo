@@ -722,6 +722,7 @@ SELECT
 	,OPCI.tiragemtotalcalc AS 'totalmetroslinearesprevisto'	
 	,O.quantidade AS 'QuantidadePrevista'
 	,OPC.montagemcarreiras AS 'Carreiras'
+	,A.OBSERVACAO AS 'Observacoes'
 
 FROM
 	pcptrabalhos T
