@@ -780,3 +780,14 @@ GROUP BY
 
 ORDER BY 1,3
 '''
+
+sql_pcpapuracao = """
+select
+	p.IDOPORDEMPRODUCAO,
+	p.EMP_ID,
+	p.DATAAPURACAO,
+	p.IDUSUARIOAPURACAO,
+	p.USER_ALTERACAO
+from 
+	pcpapuracao p;
+"""

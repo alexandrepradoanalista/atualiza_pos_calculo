@@ -24,6 +24,7 @@ query_nome_operadores = queries.sql_nome_operadores
 query_faturamento = queries.sql_faturamento
 query_pedidos = queries.sql_pedidos
 query_produtividade = queries.sql_produtividade
+query_pcpapuracao = queries.sql_pcpapuracao
 
 # Caminhos onde cada um dos arquivos retornados pelas consultas serão salvos
 
@@ -32,6 +33,7 @@ caminho_destino_nome_ops = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\
 caminho_destino_pedidos = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Pedidos de Venda.xls')
 caminho_destino_faturamento = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Notas Faturadas.xls')
 caminho_destino_produtividade = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\Produtividade por Op.xls')
+caminho_destino_pcpapuracao = Path(r'I:\ECOQUALITY\11. MONITORAMENTO DA PRODUÇÃO\Pós Cálculo\Dados\dados apuracao.xls')
 # Instanciando objetos da classe Consulta
 
 salvar_pos_calculo = Consulta(engine, query_pos_calculo, caminho_destino_pos_calc)
@@ -39,6 +41,7 @@ salvar_nome_ops = Consulta(engine, query_nome_operadores, caminho_destino_nome_o
 salvar_pedidos = Consulta(engine, query_pedidos, caminho_destino_pedidos)
 salvar_faturamento = Consulta(engine, query_faturamento, caminho_destino_faturamento)
 salvar_produtividade = Consulta(engine, query_produtividade, caminho_destino_produtividade)
+salvar_apuracao = Consulta(engine, query_pcpapuracao, caminho_destino_pcpapuracao)
 
 
 try:
@@ -47,6 +50,7 @@ try:
     salvar_pedidos.salvar_arquivo()
     salvar_faturamento.salvar_arquivo()
     salvar_produtividade.salvar_arquivo()
+    salvar_apuracao.salvar_arquivo()
     print(f'Dados atualizado até {datetime.now().strftime("%H:%M:%S do dia %d/%m/%Y")}')
 
 
